@@ -1,0 +1,19 @@
+{
+  "name": "digital-twin",
+  "version": "1.0.0",
+  "description": "ENSE895 industrial Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Phaisan1233/digital-twin.git"
+  },
+  "author": "Phaisan and Malay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Phaisan1233/digital-twin/issues"
+  },
+  "homepage": "https://github.com/Phaisan1233/digital-twin#readme"
+}

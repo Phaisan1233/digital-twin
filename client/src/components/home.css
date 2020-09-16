@@ -1,0 +1,14 @@
+.title-box {
+  box-align: top;
+  width: 100%;
+  background-color: lightblue;
+}
+
+.title {
+  float: left;
+}
+
+.body-box {
+  text-align: center;
+  display: inline-block;
+}
