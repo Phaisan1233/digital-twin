@@ -1,41 +1,88 @@
-const { AttributeIds, OPCUAClient, TimestampsToReturn, MessageSecurityMode, SecurityPolicy } = require("node-opcua");
-const opcua = require("node-opcua");
 const express = require("express");
-const chalk = require("chalk");
-const socketIO = require("socket.io");
-const port = 3700;
+const cors = require("cors");
+const socketio = require("socket.io");
+const http = require("http");
+const {
+  AttributeIds,
+  OPCUAClient,
+  TimestampsToReturn,
+  MessageSecurityMode,
+  SecurityPolicy,
+  NodeClass,
+  makeBrowsePath,
+} = require("node-opcua");
+const opcua = require("node-opcua");
+const { Console } = require("console");
 
-// const endpointUrl = "opc.tcp://" + hostname + ":26543/UA/SampleServer";
-const endpointUrl = "opc.tcp://phaisan-FA506IV:4840";
-const nodeIdToMonitor = "ns=1;i=2007848000";
-const connectionStrategy = {
-  maxRetry: 1,
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+
+const port = 5000;
+const endpointUrl = "opc.tcp://localhost:4840";
+const nodeIdToMonitor = "ns=1;s=Flop";
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+const getFoldersItems = async (session, id, name) => {
+  let children = [];
+  const browseResult = await session.browse(id);
+  if (browseResult.references.length > 0) {
+    for (let reference of browseResult.references) {
+      let id = reference.nodeId.toString();
+      let name = reference.browseName.name;
+      children.push(await getFoldersItems(session, id, name));
+    }
+  }
+  let folder = { id, name, children };
+  return folder;
 };
 
-// const endpointUrl = "opc.tcp://localhost:4840/";
-// const nodeIdToMonitor = "ns=1;s=2918202828";
-const client = OPCUAClient.create({
+//opc ua
+const connectionStrategy = { maxRetry: 1 };
+const options = {
   applicationName: "MyClient",
   connectionStrategy: connectionStrategy,
   securityMode: MessageSecurityMode.None,
   securityPolicy: SecurityPolicy.None,
   endpoint_must_exist: false,
-});
+};
+const client = OPCUAClient.create(options);
 
-(async () => {
+const opcuaConnection = async () => {
   try {
-    client.on("backoff", (retry, delay) => {
-      console.log("Retrying to connect to ", endpointUrl, " attempt ", retry);
-    });
+    // const client = OPCUAClient.create({ endpoint_must_exist: false });
+
+    // await client.withSessionAsync(endpointUrl, async (session) => {
+    //   let browseResult = await session.browse({
+    //     nodeId,
+    //     nodeClassMask: NodeClass.Variable, // we only want sub node that are Variables
+    //     resultMask: 63, // extract all information possible
+    //   });
+    //   console.log("BrowseResult = ", browseResult.toString());
+    // });
 
     // step 1 : connect to
-    console.log(" connecting to ", chalk.cyan(endpointUrl));
     await client.connect(endpointUrl);
-    console.log(" connected to ", chalk.cyan(endpointUrl));
+    console.log(`${endpointUrl} connected !`);
 
+    // step 2 : createSession
     const session = await client.createSession();
-    console.log(" session created");
+    console.log("session created !");
 
+    // step 3 : browseObjects
+    let rootFolder = await getFoldersItems(session, "RootFolder", "root");
+
+    io.on("connect", (socket) => {
+      socket.emit("roofFolder", rootFolder);
+    });
+
+    // sub
     const subscription = await session.createSubscription2({
       requestedPublishingInterval: 2000,
       requestedMaxKeepAliveCount: 20,
@@ -55,42 +102,6 @@ const client = OPCUAClient.create({
       .on("terminated", function () {
         console.log("terminated");
       });
-
-    // --------------------------------------------------------
-
-    const io = socketIO.listen(3700);
-
-    let nodesToWrite;
-
-    io.sockets.on("connection", function (socket) {
-      socket.on("getData", (data) => {
-        //console.log("get" + data.value);
-        nodesToWrite = [
-          {
-            nodeId: "ns=1;i=2995697241",
-            attributeId: AttributeIds.Value,
-            value: /*new DataValue(*/ {
-              value: {
-                /* Variant */
-                dataType: opcua.DataType.Boolean,
-                value: data.value,
-              },
-            },
-          },
-        ];
-        session.write(nodesToWrite, function (err, statusCodes) {
-          //console.log(nodesToWrite);
-          console.log(statusCodes);
-          if (!err) {
-            console.log(" write ok");
-          }
-        });
-      });
-    });
-
-    console.log("Listening on port " + port);
-
-    // --------------------------------------------------------
 
     const itemToMonitor = {
       nodeId: nodeIdToMonitor,
@@ -112,25 +123,56 @@ const client = OPCUAClient.create({
       });
     });
 
-    // detect CTRL+C and close
-    let running = true;
-    process.on("SIGINT", async () => {
-      if (!running) {
-        return; // avoid calling shutdown twice
-      }
-      console.log("shutting down client");
-      running = false;
-
-      await subscription.terminate();
-
-      await session.close();
-      await client.disconnect();
-      console.log("Done");
-      process.exit(0);
+    io.on("connect", (socket) => {
+      socket.emit("roofFolder", rootFolder);
+      socket.on("getData", (data) => {
+        //console.log("get" + data.value);
+        nodesToWrite = [
+          {
+            nodeId: "ns=1;s=Flip",
+            attributeId: AttributeIds.Value,
+            value: /*new DataValue(*/ {
+              value: {
+                /* Variant */
+                dataType: opcua.DataType.Boolean,
+                value: data.value,
+              },
+            },
+          },
+        ];
+        session.write(nodesToWrite, function (err, statusCodes) {
+          //console.log(nodesToWrite);
+          //console.log(statusCodes);
+          if (!err) {
+            console.log(" write ok");
+          }
+        });
+      });
     });
   } catch (err) {
-    console.log(chalk.bgRed.white("Error" + err.message));
-    console.log(err);
-    process.exit(-1);
+    console.log("An error has occured : " + err);
   }
-})();
+};
+
+let serverlisten = server.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
+  opcuaConnection();
+});
+//serverlisten.close();
+
+// const r = session.browse(["RootFolder", "ns=0;i=85"], function (err, results, diagnostics) {
+//   console.log(results.toString());
+// });
+// step 6: finding the nodeId of a node by Browse name
+// const browsePath = makeBrowsePath("RootFolder", "/Objects/1:Flip");
+
+// const result = await session.translateBrowsePath(browsePath);
+// const productNameNodeId = result.targets[0];
+// console.log(" Product Name nodeId = ", productNameNodeId.toString());
+
+// close session
+// await session.close();
+
+// // disconnecting
+// await client.disconnect();
+// console.log("done !");

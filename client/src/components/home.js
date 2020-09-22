@@ -3,25 +3,29 @@ import socketIOClient from "socket.io-client";
 import Bulb from "react-bulb";
 import Switch from "react-switch";
 import "./home.css";
+import FolderTree from "./folderTree";
 
-const ENDPOINT = "http://localhost:3700";
+const ENDPOINT = "http://localhost:5000";
+let socket;
 
-export default function ClientComponent() {
+export default function Home() {
   const [checked, setChecked] = useState(Boolean);
   const [checked1, setChecked1] = useState(Boolean);
   const [data, setData] = useState("");
-  const socket = socketIOClient(ENDPOINT);
 
   useEffect(() => {
+    socket = socketIOClient(ENDPOINT);
+
     socket.on("message", (data) => {
       console.log(data);
       setChecked(data.value);
+      setChecked1(data.value);
       setData("node id : " + data.nodeId);
     });
-  }, [socket]);
+  }, []);
 
   const handleChange = (event) => {
-    console.log(checked);
+    console.log(checked1);
     socket.emit("getData", {
       value: checked,
     });
@@ -43,6 +47,7 @@ export default function ClientComponent() {
         <p> {data}</p>
         <Switch onChange={handleChange} checked={checked1} />
       </div>
+      <FolderTree></FolderTree>
     </div>
   );
 }
