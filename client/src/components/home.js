@@ -19,6 +19,7 @@ export default function Home() {
     socket.on("message", (data) => {
       console.log(data);
       setChecked(data.value);
+
       setChecked1(data.value);
       setData("node id : " + data.nodeId);
     });
