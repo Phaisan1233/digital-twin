@@ -33,9 +33,10 @@ const data1 = {
 
 const useStyles = makeStyles({
   root: {
-    height: 110,
+    //height: 110,
     flexGrow: 1,
-    maxWidth: 400,
+    //maxWidth: 400,
+    backgroundColor: "lightblue",
   },
 });
 
