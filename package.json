@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/Phaisan1233/digital-twin/issues"
   },
-  "homepage": "https://github.com/Phaisan1233/digital-twin#readme"
+  "homepage": "https://github.com/Phaisan1233/digital-twin#readme",
+  "dependencies": {
+    "packery": "^2.1.2",
+    "react-grid-layout": "^1.2.4",
+    "semantic-ui-react": "^2.0.3"
+  }
 }

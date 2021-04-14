@@ -20,6 +20,7 @@ const io = socketio(server);
 
 const port = 5000;
 const endpointUrl = "opc.tcp://localhost:4840";
+//const endpointUrl = "opc.tcp://172.28.90.84:4840";
 const nodeIdToMonitor = "ns=1;s=Flop";
 
 app.use(cors());
