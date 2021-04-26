@@ -12,3 +12,153 @@
   text-align: center;
   display: inline-block;
 } */
+
+/* .titleContainer {
+  text-align: center;
+  position: absolute; 
+  left: 0; 
+  top: 0;
+  height: 8%;
+  padding: 2px 8px;
+  background-color: #001484;
+  color: whitesmoke;
+  
+} */
+
+/* .nav {
+  grid-area: header;
+  background-color: black;
+
+} */
+
+.titleContainer {
+  /* position: left; */
+  grid-area: titleContainer;
+  background-color: #001484;
+  padding: 6px;
+  text-align: center;
+  color: whitesmoke;
+} */
+
+.navContainer {
+  /* position: right; */
+  grid-area: navContainer; 
+  background-color: #001484;
+  padding: 1% 1%;
+  text-align: center;
+  color: whitesmoke;
+  width: max-content;
+}
+
+/* .navContainer {
+  text-align: center;
+  position: absolute;
+  width: max-content; 
+  top: 0; 
+  right: 0; 
+  padding-top: 1%;
+  padding-bottom: 1%;
+  background-color: #001484;
+  color: whitesmoke;
+}
+
+/* The grid container */
+.grid-container {
+  display: grid;
+  grid-template-areas: 
+    'titleContainer titleContainer header header header navContainer' 
+    /* 'header header header header header header' */
+    'leftColumn-Container leftColumn-Container middleColumn-Container middleColumn-Container rightColumn-Container rightColumn-Container' 
+    'footer footer footer footer footer footer';
+  grid-column-gap: 10px; 
+  /* - if you want gap between the columns */
+} 
+
+.leftColumn-Container,
+.middleColumn-Container,
+.rightColumn-Container {
+  padding: 10px;
+}
+
+/* Style the left column */
+.leftColumn-Container {
+  grid-area: left;
+  background-color: #001484;
+  text-align: center;
+}
+
+/* Style the middle column */
+.middleColumn-Container {
+  grid-area: middle;
+  background-color: #001484;
+  text-align: center;
+}
+
+/* Style the right column */
+.rightColumn-Container {
+  grid-area: right;
+  background-color: #001484;
+  text-align: center;
+}
+
+
+.leftColumn-Container {
+  text-align: center;
+  position: relative;
+  left: auto;
+  top: auto;
+  background-color: #001484; 
+
+}
+
+.App {
+  text-align: center;
+  width: 95%;
+  margin: 15px auto;
+}
+
+.container-drag {
+  text-align: center;
+}
+
+.wip {
+  position: absolute;
+  width: 150px;
+  height: 100vh;
+  left: 0;
+  top: 10;
+  background-color: #EEEEEE;
+  border-right: 1px dotted;
+}
+
+.header {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  background-color: #E0E0E0;
+  width:100%;
+}
+
+.task-header {
+  display: inline-block;
+  background-color: skyblue;
+  width:100%;
+}
+
+.droppable {
+  position: absolute;
+  width: 150px;
+  height: 100vh;
+  right: 0;
+  top: 10;
+  background-color: #9E9E9E;
+  border-left: 1px dotted;
+}
+
+.draggable {
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+  margin: 5px auto;
+  line-height: 5em;
+}

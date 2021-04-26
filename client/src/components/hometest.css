@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: 
+      'topleft topleft header header topright topright' 
+      'left middle middle middle middle right' 
+      'footer footer footer footer footer footer';
+    grid-column-gap: 10px;
+  } 
+
+.nav {
+    font-size: auto;
+    background-color: #001484;
+    padding-bottom: 10px;
+    color: whitesmoke;
+}
+
+.navContainer {
+    grid-area: topright;
+    list-style-type: none;
+    /* display: none; */
+}
+
+.nav-links,
+.titleContainer {
+    text-decoration: none;
+}
+
+.navContainer li {
+    text-align: center;
+    margin: 15px auto;
+}
+
+.titleContainer {
+    grid-area: topleft; 
+    display: inline-block;
+    font-size: 22px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.nav-toggle {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 24px;
+}
+
+.active {
+    display: block;
+}
+
+/* @media screen and (min-width: 200px) {
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 0;
+        height: 70px;
+        align-items: center;
+    }
+
+    .navContainer {
+        display: flex;
+        margin-right: 30px;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .navContainer li {
+        margin: 0;
+    }
+
+    .nav-links {
+        margin-left: 40px;
+    }
+
+    .titleContainer {
+        margin-top: 0;
+    }
+
+    .nav-toggle {
+        display: none;
+    }
+
+    .titleContainer:hover,
+    .nav-links:hover {
+        color: lightskyblue
+    }
+} */
+
+/* .grid-container {
+    display: grid;
+    grid-template-areas: 
+      'titleContainer titleContainer header header header navContainer' 
+      'header header header header header header'
+      'nav nav nav nav nav nav'
+      'leftColumn-Container leftColumn-Container middleColumn-Container middleColumn-Container rightColumn-Container rightColumn-Container' 
+      'footer footer footer footer footer footer';
+  }  */
+
+  
+
+.leftColumn-Container,
+.middleColumn-Container,
+.rightColumn-Container {
+  padding: 10px;
+}
+
+/* Style the left column */
+.leftColumn-Container {
+  grid-area: left;
+  /* grid-area: leftColumn-Container; */
+  background-color: #001484;
+  text-align: center;
+}
+
+/* Style the middle column */
+.middleColumn-Container {
+  grid-area: middle;
+  /* grid-area: middleColumn-Container; */
+  background-color: #001484;
+  text-align: center;
+}
+
+/* Style the right column */
+.rightColumn-Container {
+  grid-area: right;
+  /* grid-area: rightColumn-Container; */
+  background-color: #001484;
+  text-align: center;
+}

@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import GridLayout from 'react-grid-layout';
 import { Container, Grid, Divider, Header, Icon } from 'semantic-ui-react';
 import Box from '@material-ui/core/Box';
+import Home from "./home";
+// import './home.css';
+import './hometest.css';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Deployment from "./deployment"; 
 
 export default function RecursiveTreeView() {
 
@@ -10,27 +16,40 @@ export default function RecursiveTreeView() {
 	}, []);
 
 
+
 	return (
-		<div>
-			<Grid relaxed>
-				<Grid.Row>
-					<Grid.Column width={4} floated='left'>
-						<Box bgcolor="darkblue" color="white" fontWeight="bold" fontSize="auto" >
-							<p>TITLE GOES HERE</p>
-						</Box>
-					</Grid.Column>
+		<div className="grid-container">
 
-					<Grid.Column width={12} floated='right'>
-						<Box bgcolor="lightblue" >
-							<p>stupid</p>
-						</Box>
-					</Grid.Column>
+			<div className="nav">
 
-				</Grid.Row>
+				<div className="titleContainer">
+					<h2>TITLE GOES HERE</h2>
+				</div>
 
+				<div className="navContainer">
+					<Tabs variant="tabs" defaultActiveKey="/home">
+						<Tab href={Home} label="HOME" />
+						<Tab label="Deployment" href={Deployment} />
+					</Tabs>
+				</div>
 
-			</Grid>
+			</div>
+			
+			<div className="leftColumn-Container">
+				<h2>Left side</h2>
+			</div>
+
+			<div className="middleColumn-Container">
+				<h2>Middle section</h2> 
+			</div>
+
+			<div className="rightColumn-Container">
+				<h2>Right side</h2>
+			</div>
 
 		</div>
+		
+
+	
 	);
 }
