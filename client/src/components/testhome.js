@@ -20,32 +20,32 @@ export default function RecursiveTreeView() {
 	return (
 		<div className="grid-container">
 
-			<div className="nav">
-
 				<div className="titleContainer">
 					<h2>TITLE GOES HERE</h2>
 				</div>
 
+				
 				<div className="navContainer">
 					<Tabs variant="tabs" defaultActiveKey="/home">
-						<Tab href={Home} label="HOME" />
-						<Tab label="Deployment" href={Deployment} />
+						{/* <Tab href={Home} label="HOME" /> */}
+						<Tab href="/" label="HOME"/>
+						<Tab label="Deployment" href="/deployment" />
 					</Tabs>
 				</div>
 
-			</div>
-			
 			<div className="leftColumn-Container">
 				<h2>Left side</h2>
+				
 			</div>
 
 			<div className="middleColumn-Container">
-				<h2>Middle section</h2> 
+				<h2>middle section</h2> 
 			</div>
 
 			<div className="rightColumn-Container">
-				<h2>Right side</h2>
+				<h2>right side</h2>
 			</div>
+
 
 		</div>
 		

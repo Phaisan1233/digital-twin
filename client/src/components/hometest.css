@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+    /* padding: 0;
+    margin: 0; */
 }
 
 body {
@@ -11,13 +11,14 @@ body {
 .grid-container {
     display: grid;
     grid-template-areas: 
-      'topleft topleft header header topright topright' 
-      'left middle middle middle middle right' 
-      'footer footer footer footer footer footer';
+      'topleft topleft nav nav nav topright' 
+      /* 'nav nav nav nav nav nav' */
+      'left middle middle middle middle right';
     grid-column-gap: 10px;
   } 
 
 .nav {
+    grid-area: nav;
     font-size: auto;
     background-color: #001484;
     padding-bottom: 10px;
@@ -27,6 +28,8 @@ body {
 .navContainer {
     grid-area: topright;
     list-style-type: none;
+    background-color: #001484;
+    color: whitesmoke;
     /* display: none; */
 }
 
@@ -37,15 +40,16 @@ body {
 
 .navContainer li {
     text-align: center;
-    margin: 15px auto;
+    /* margin: 15px auto; */
+    background-color: #001484;
 }
 
 .titleContainer {
     grid-area: topleft; 
     display: inline-block;
     font-size: 22px;
-    margin-top: 10px;
-    margin-left: 20px;
+    /* margin-top: 10px;
+    margin-left: 20px; */
 }
 
 .nav-toggle {
