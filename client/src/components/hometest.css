@@ -2,25 +2,47 @@
     box-sizing: border-box;
     /* padding: 0;
     margin: 0; */
+
 }
+
 
 body {
     font-family: 'Josefin Sans', sans-serif;
+    height: 100%;
+    
+    background-color: #444a99;
+
+    background-image: 
+    linear-gradient(0deg, transparent 9%, 
+            rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%, 
+            rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%, 
+            rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%, 
+            rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
+            rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent),
+    linear-gradient(90deg, transparent 9%, 
+            rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%, 
+            rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%, 
+            rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%, 
+            rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
+            rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent);
+    
+    height:100%;
+  background-size:50px 50px;
 }
 
 .grid-container {
     display: grid;
     grid-template-areas: 
       'topleft topleft nav nav nav topright' 
-      /* 'nav nav nav nav nav nav' */
-      'left middle middle middle middle right';
+      'left middle middle middle middle middle';
     grid-column-gap: 10px;
+    
   } 
 
 .nav {
     grid-area: nav;
     font-size: auto;
-    background-color: #001484;
+    background-color: #334088;
     padding-bottom: 10px;
     color: whitesmoke;
 }
@@ -28,9 +50,8 @@ body {
 .navContainer {
     grid-area: topright;
     list-style-type: none;
-    background-color: #001484;
+    background-color: #1e33a7;
     color: whitesmoke;
-    /* display: none; */
 }
 
 .nav-links,
@@ -102,39 +123,53 @@ body {
         color: lightskyblue
     }
 } */
-
-/* .grid-container {
-    display: grid;
-    grid-template-areas: 
-      'titleContainer titleContainer header header header navContainer' 
-      'header header header header header header'
-      'nav nav nav nav nav nav'
-      'leftColumn-Container leftColumn-Container middleColumn-Container middleColumn-Container rightColumn-Container rightColumn-Container' 
-      'footer footer footer footer footer footer';
-  }  */
-
   
 
 .leftColumn-Container,
 .middleColumn-Container,
 .rightColumn-Container {
   padding: 10px;
+  height: 100vh;
 }
 
 /* Style the left column */
 .leftColumn-Container {
   grid-area: left;
-  /* grid-area: leftColumn-Container; */
-  background-color: #001484;
+  /* background-color: #444dc5; */
+  background-color: hsl(236, 20%, 70%);
+
+  color: whitesmoke;
   text-align: center;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5) 2px,
+      transparent 2px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.5) 2px, transparent 2px),
+    linear-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+  
 }
 
 /* Style the middle column */
 .middleColumn-Container {
   grid-area: middle;
-  /* grid-area: middleColumn-Container; */
-  background-color: #001484;
   text-align: center;
+  /* background-color: #0f2083; */
+  background-color: #8083b3 ;
+  ;
+
+  color: whitesmoke;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5) 2px,
+      transparent 2px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.5) 2px, transparent 2px),
+    linear-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
 
 /* Style the right column */
@@ -143,4 +178,7 @@ body {
   /* grid-area: rightColumn-Container; */
   background-color: #001484;
   text-align: center;
+}
+#bulb-drag {
+    position: absolute;
 }

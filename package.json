@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Phaisan1233/digital-twin#readme",
   "dependencies": {
+    "blueprint-css": "^3.0.0-beta.0",
     "packery": "^2.1.2",
     "react-grid-layout": "^1.2.4",
     "semantic-ui-react": "^2.0.3"
